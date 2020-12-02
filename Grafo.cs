@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 
 namespace Grafo
@@ -11,6 +12,8 @@ namespace Grafo
 		}
 
 		private List<Vertice<T>> vertices = new List<Vertice<T>>();
+
+		private Hashtable visitados = new Hashtable();
 
 		public void agregarVertice(Vertice<T> v)
 		{
@@ -50,6 +53,17 @@ namespace Grafo
 		public void DFS(Vertice<T> origen)
 		{
 
+			if (!this.visitar(origen)) //Verifico que U no este visitado
+			{
+				Console.Write(origen.getDato()+ " "); //Muestro el dato
+
+				List<Arista<T>> vecinos = origen.getAdyacentes(); //Vecinos de U
+
+				foreach (Arista<T> arista in vecinos) //Verifico que U tenga vecinos
+				{
+					this.DFS(arista.getDestino()); //Recursivamente aplicamos DFS
+				}
+			}
 		}
 
 		public void BFS(Vertice<T> origen)
@@ -57,6 +71,24 @@ namespace Grafo
 
 		}
 
+		public void resetVisitas()
+        {
+			visitados = new Hashtable();
+        }
+		
+
+		public bool visitar(Vertice<T> nodo) {
+			
+			if (visitados.ContainsKey(nodo))
+			{
+				return true; //Si U ya fue visitado
+			}
+			else 
+			{
+				visitados.Add(nodo,true);
+				return false;   //Si U no fue visitado
+			}
+		}
 
 	}
 }
