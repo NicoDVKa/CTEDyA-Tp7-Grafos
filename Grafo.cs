@@ -68,7 +68,24 @@ namespace Grafo
 
 		public void BFS(Vertice<T> origen)
 		{
+			this.visitar(origen); //Visito U
+			Cola<Vertice<T>> cola = new Cola<Vertice<T>>();
+			cola.encolar(origen);//Encolo U
+			while (!cola.esVacia()) {
+				Vertice<T> vertice = cola.desencolar();//Desencolo U
+				Console.Write(vertice.getDato()+" ");//Muestro el dato de U
+				if (vertice.getAdyacentes().Count != 0)//Verifico que tenga vecinos 
+				{
+					List<Arista<T>> vecinos = vertice.getAdyacentes();
+					foreach (Arista<T> arista in vecinos)
+					{
+						if (!this.visitar(arista.getDestino())){
 
+							cola.encolar(arista.getDestino()); //Encolos los vecinos de U que no fueron visitados
+						}
+					}
+				}
+			}
 		}
 
 		public void resetVisitas()

@@ -30,7 +30,11 @@ namespace Grafo
             grafo.conectar(vertice6, vertice8, 0);
             grafo.conectar(vertice8, vertice7, 0);
 
-            grafo.DFS(vertice4);
+            Console.Write("Recorrido DFS: "); grafo.DFS(vertice4);
+
+            grafo.resetVisitas();   Console.WriteLine();
+
+            Console.Write("Recorrido BFS: ");grafo.BFS(vertice4);
 
             Console.ReadKey(true);
         }
